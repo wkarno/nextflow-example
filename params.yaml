@@ -1,0 +1,110 @@
+# ========================================================================================
+#     FASTQ Processing Pipeline Parameters
+# ========================================================================================
+# This file contains all configurable parameters for the pipeline.
+# Override these values as needed for your specific analysis.
+
+# ----------------------------------------------------------------------------------------
+# Input/Output Configuration
+# ----------------------------------------------------------------------------------------
+# Path to the samplesheet CSV file (columns: sampleID, fastq1, fastq2)
+samplesheet: "samplesheet.csv"
+
+# Output directory for all results
+outdir: "results"
+
+# ----------------------------------------------------------------------------------------
+# Reference Genome
+# ----------------------------------------------------------------------------------------
+# Path to reference genome FASTA file (REQUIRED)
+# Example: "/path/to/reference/genome.fa"
+reference: null
+
+# ----------------------------------------------------------------------------------------
+# FastP Trimming Parameters
+# ----------------------------------------------------------------------------------------
+# Minimum Phred quality score for a base to be considered qualified (default: 20)
+fastp_qualified_quality: 20
+
+# Minimum read length after trimming (shorter reads will be discarded, default: 50)
+fastp_min_length: 50
+
+# Minimum mean quality for sliding window trimming (default: 20)
+fastp_cut_mean_quality: 20
+
+# Additional arguments to pass to fastp (optional)
+# Examples:
+#   "--cut_front --cut_tail"  (trim low quality bases from both ends)
+#   "--adapter_fasta adapters.fa"  (use custom adapter sequences)
+#   "--dedup"  (enable deduplication)
+fastp_extra_args: ""
+
+# ----------------------------------------------------------------------------------------
+# BWA-MEM Alignment Parameters
+# ----------------------------------------------------------------------------------------
+# Additional arguments to pass to BWA-MEM (optional)
+# Examples:
+#   "-k 19"  (minimum seed length)
+#   "-w 100"  (band width)
+#   "-d 100"  (off-diagonal X-dropoff)
+#   "-r 1.5"  (look for internal seeds inside a seed longer than minimum seed length)
+bwa_extra_args: ""
+
+# ----------------------------------------------------------------------------------------
+# Quality Control Cutoffs
+# ----------------------------------------------------------------------------------------
+# These values are for reference/documentation purposes.
+# The pipeline does not enforce these cutoffs automatically.
+# Use the MultiQC report to assess whether your samples meet these thresholds.
+
+# Minimum number of reads after trimming (warning threshold)
+min_reads_after_trimming: 1000000
+
+# Minimum mapping rate (fraction of reads aligned, warning threshold)
+# Example: 0.80 means 80% of reads should align
+min_mapping_rate: 0.80
+
+# Maximum duplicate rate (warning threshold)
+# Example: 0.30 means no more than 30% duplicates are acceptable
+max_duplicate_rate: 0.30
+
+# ----------------------------------------------------------------------------------------
+# Computational Resources
+# ----------------------------------------------------------------------------------------
+# Maximum CPUs to use per process
+max_cpus: 8
+
+# Maximum memory to use per process
+max_memory: "32.GB"
+
+# Maximum time per process
+max_time: "24.h"
+
+# ----------------------------------------------------------------------------------------
+# Example Configurations for Different Use Cases
+# ----------------------------------------------------------------------------------------
+# Below are commented examples for common scenarios
+
+# --- Aggressive Quality Trimming ---
+# Uncomment and modify for high-quality requirements:
+# fastp_qualified_quality: 30
+# fastp_min_length: 75
+# fastp_cut_mean_quality: 30
+# fastp_extra_args: "--cut_front --cut_tail --cut_window_size 4 --cut_mean_quality 30"
+
+# --- Low-Input/Degraded Samples ---
+# Uncomment for more lenient trimming:
+# fastp_qualified_quality: 15
+# fastp_min_length: 35
+# fastp_cut_mean_quality: 15
+
+# --- Amplicon Sequencing ---
+# Uncomment to enable deduplication:
+# fastp_extra_args: "--dedup --dup_calc_accuracy 6"
+
+# --- Targeted Sequencing/Exome ---
+# Add minimum mapping quality filter if needed:
+# bwa_extra_args: "-T 30"
+
+# --- RNA-Seq (if switching to STAR aligner) ---
+# Note: Would require modifying the pipeline to use STAR instead of BWA-MEM
