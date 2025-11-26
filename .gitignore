@@ -1,0 +1,50 @@
+# Nextflow work directory
+work/
+.nextflow/
+.nextflow.log*
+
+# Output directories
+results/
+
+# Pipeline info
+pipeline_info/
+timeline.html
+report.html
+trace.txt
+dag.svg
+
+# Temporary files
+*.tmp
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+env/
+venv/
+.venv
+
+# R
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Conda
+.conda/
+
+# Claude
+.claude/
