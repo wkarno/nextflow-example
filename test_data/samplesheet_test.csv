@@ -1,0 +1,2 @@
+sampleID,fastq1,fastq2
+test_sample,/Users/willarnold/Repos/nextflow-example/test_data/test_sample_R1.fastq.gz,/Users/willarnold/Repos/nextflow-example/test_data/test_sample_R2.fastq.gz
