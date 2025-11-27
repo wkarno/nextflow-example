@@ -40,6 +40,44 @@ curl -s https://get.nextflow.io | bash
 
 ### 2. Prepare Your Input Files
 
+#### Option A: Create Samplesheet Automatically
+
+Use the provided Python script to automatically generate a samplesheet from a directory of FASTQ files:
+
+```bash
+# Install Python dependencies (none required - uses stdlib only)
+pip install -r requirements.txt
+
+# Generate samplesheet from a directory
+python bin/create_samplesheet.py /path/to/fastq/directory
+
+# This creates: /path/to/fastq/directory/<directory_name>_SampleSheet.csv
+```
+
+The script will:
+- Recursively search for all FASTQ files (.fastq, .fq, .fastq.gz, .fq.gz)
+- Automatically detect paired-end reads (supports both `_R1/_R2` and `_1/_2` patterns)
+- Extract sample names by removing standard Illumina suffixes
+- Handle unpaired reads by placing them in the fastq1 column
+- Generate a samplesheet compatible with the pipeline
+
+**Usage examples:**
+```bash
+# Basic usage - creates samplesheet in the same directory
+python bin/create_samplesheet.py /data/fastq_files
+
+# Specify custom output location
+python bin/create_samplesheet.py /data/fastq_files --output my_samples.csv
+
+# Use relative paths instead of absolute paths
+python bin/create_samplesheet.py /data/fastq_files --relative-paths
+
+# Verbose output for debugging
+python bin/create_samplesheet.py /data/fastq_files --verbose
+```
+
+#### Option B: Create Samplesheet Manually
+
 Create a samplesheet CSV file with three columns: `sampleID`, `fastq1`, `fastq2`
 
 ```csv

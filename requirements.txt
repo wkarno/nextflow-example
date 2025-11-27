@@ -1,0 +1,10 @@
+# Python dependencies for FASTQ Processing Pipeline tools
+# This file contains dependencies for the samplesheet creator script
+
+# No external dependencies required - uses Python standard library only
+# The script is compatible with Python 3.7+
+
+# For development/testing (optional):
+# pytest>=7.0.0
+# black>=22.0.0
+# flake8>=4.0.0
